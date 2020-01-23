@@ -4,7 +4,6 @@ class ProductController {
   async store(req, res) {
     try {
       const { name, price } = req.body;
-      const { ownerId } = req.query;
 
       let product = await Product.findOne({ name });
 
@@ -12,7 +11,7 @@ class ProductController {
         product = await Product.create({
           name,
           price,
-          ownerId,
+          ownerId: req.userId,
         });
 
         return res.send(product).populate();
@@ -26,9 +25,7 @@ class ProductController {
 
   async index(req, res) {
     try {
-      const { ownerId } = req.query;
-
-      const products = await Product.find({ ownerId });
+      const products = await Product.find({ ownerId: req.userId });
 
       return res.send(products);
     } catch (error) {
