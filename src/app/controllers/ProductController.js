@@ -14,7 +14,7 @@ class ProductController {
           ownerId: req.userId,
         });
 
-        return res.send(product).populate();
+        return res.send(product);
       }
 
       return res.send({ msg: 'This product already exist' });

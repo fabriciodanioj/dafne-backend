@@ -5,6 +5,8 @@ import AuthMiddleware from './app/middlewares/auth';
 import UserController from './app/controllers/UserController';
 import ProductController from './app/controllers/ProductController';
 import SessionController from './app/controllers/SessionController';
+import DayBalanceController from './app/controllers/DayBalanceController';
+import OrderController from './app/controllers/OrderController';
 
 const routes = new Router();
 // Session
@@ -20,7 +22,17 @@ routes.use(AuthMiddleware);
 // Products
 routes.post('/user/product/create', ProductController.store);
 routes.get('/user/product/list', ProductController.index);
-routes.post('/user/product/delete', ProductController.destroy);
-routes.post('/user/product/update', ProductController.update);
+routes.delete('/user/product/delete', ProductController.destroy);
+routes.put('/user/product/update', ProductController.update);
+
+// DayBalance
+routes.post('/user/day/create', DayBalanceController.store);
+routes.get('/user/day/show', DayBalanceController.index);
+routes.get('/user/day/show/range', DayBalanceController.show);
+routes.get('/user/day/show/all', DayBalanceController.showAll);
+
+// Order
+routes.post('/user/order/create', OrderController.store);
+routes.get('/user/order/show', OrderController.show);
 
 export default routes;
