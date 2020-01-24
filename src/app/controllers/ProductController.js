@@ -33,6 +33,17 @@ class ProductController {
     }
   }
 
+  async show(req, res) {
+    try {
+      const { name } = req.query;
+      const products = await Product.find({ ownerId: req.userId, name });
+
+      return res.send(products);
+    } catch (error) {
+      return res.send(error);
+    }
+  }
+
   async destroy(req, res) {
     try {
       const { _id } = req.body;

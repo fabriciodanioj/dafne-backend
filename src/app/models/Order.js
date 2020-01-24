@@ -6,13 +6,8 @@ const OrderSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'DayBalance',
     },
-    products: {
-      type: [Schema.Types.ObjectId],
-      ref: 'Product',
-    },
-    value: {
-      type: Number,
-    },
+    products: [Object],
+    value: Number,
   },
   {
     timestamps: true,

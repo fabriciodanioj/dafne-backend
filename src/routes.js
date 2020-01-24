@@ -15,13 +15,14 @@ routes.post('/session', SessionController.index);
 // Users
 routes.post('/admin/user/create', UserController.store);
 routes.get('/admin/user/list', UserController.index);
-routes.post('/admin/user/delete', UserController.destroy);
+routes.delete('/admin/user/delete', UserController.destroy);
 
 routes.use(AuthMiddleware);
 
 // Products
 routes.post('/user/product/create', ProductController.store);
 routes.get('/user/product/list', ProductController.index);
+routes.get('/user/product/search', ProductController.show);
 routes.delete('/user/product/delete', ProductController.destroy);
 routes.put('/user/product/update', ProductController.update);
 

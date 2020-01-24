@@ -8,7 +8,7 @@ class OrderController {
     try {
       const { refDay, products } = req.body;
 
-      const prices2 = await products.reduce(async (acc, p) => {
+      const prices = await products.reduce(async (acc, p) => {
         const totalPrice = await acc;
         const { price } = await Product.findById(p.id);
         const { amount } = p;
@@ -16,25 +16,32 @@ class OrderController {
         return [...totalPrice, price * amount];
       }, []);
 
-      const sum = prices2.reduce((acc, cur) => {
+      const sum = prices.reduce((acc, cur) => {
         return acc + cur;
       }, 0.0);
 
-      const { _id, orders } = await DayBalance.findOne({
+      const { _id, orders, total } = await DayBalance.findOne({
         day: refDay,
         ownerId: req.userId,
       });
 
+      const productsInfo = await products.reduce(async (acc, p) => {
+        const { price, name } = await Product.findById(p.id);
+
+        return [...(await acc), { name, price }];
+      }, []);
+
       const order = await Order.create({
         refDay: _id,
         value: sum,
-        products: products.reduce((acc, p) => [...acc, p.id], []),
+        products: productsInfo,
       });
 
       await DayBalance.findByIdAndUpdate(
         { _id },
         {
           orders: [...orders, order],
+          total: total + sum,
         }
       );
 
@@ -50,7 +57,7 @@ class OrderController {
 
       const order = await Order.findById(orderId);
 
-      return res.send(order);
+      return res.send({ order });
     } catch (error) {
       return res.send(error.message);
     }

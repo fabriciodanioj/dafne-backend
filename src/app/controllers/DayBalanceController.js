@@ -11,6 +11,7 @@ class DayBalanceController {
         dayBalance = await DayBalance.create({
           day,
           ownerId: req.userId,
+          total: 0,
         });
 
         return res.send(dayBalance);
