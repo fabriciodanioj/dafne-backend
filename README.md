@@ -79,7 +79,8 @@ Rotas que necessita estar autenticado
 - [x] Vendas
 - POST `/user/order/create` -> Cria uma nova compra
 - GET `/user/order/show` -> Mostra uma compra especifica
-- GET `/user/order/show/today` -> Mostra todas as compras de um dia especificp
+- GET `/user/order/show/perday` -> Mostra todas as compras de um dia especifico
+- DELETE `/user/order/delete` -> Deleta uma venda
 
 ---
 ## Meta
