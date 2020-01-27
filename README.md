@@ -48,6 +48,39 @@ $ yarn dev
 
 ## :memo: Rotas
 
+### base_url -> `http://localhost:3333`
+
+Rotas que não necessita estar autenticado
+- [x] Criação de usuarios
+- POST `/admin/user/create` -> Cria um novo usuário
+- DELETE `/admin/user/delete` -> Deleta um usuário
+- GET `/admin/user/list` -> Lista os usuarios criados
+
+- [x] Autenticação
+- POST `/session` -> Faz o login e recebe o token jwt para as rotas autenticadas
+
+---
+
+Rotas que necessita estar autenticado
+
+- [x] Produtos
+- POST `/user/product/create` -> Cria um novo produto
+- UPDATE `/user/product/update` -> Atualiza um produto
+- DELETE `/user/product/delete` -> Deleta um produto
+- GET `/user/product/list` -> Lista os produtos criados
+- GET `/user/product/search` -> Procura por um produto
+
+- [x] Dias
+- POST `/user/day/create` -> Cria um novo dia
+- GET `/user/day/show` -> Mostra um dia especifico
+- GET `/user/day/show/all` -> Mostra todos os dias
+- GET `/user/day/show/range` -> Mostra os dias dentro de um intervalo
+
+- [x] Vendas
+- POST `/user/order/create` -> Cria uma nova compra
+- GET `/user/order/show` -> Mostra uma compra especifica
+- GET `/user/order/show/today` -> Mostra todas as compras de um dia especificp
+
 ---
 ## Meta
 Feito com ♥ por Fabricio Dani :wave: [LinkedIn!](https://www.linkedin.com/in/fabricio-dani-373469176/)
