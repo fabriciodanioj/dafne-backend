@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import Order from '../models/Order';
 import Product from '../models/Product';
 import DayBalance from '../models/DayBalance';
@@ -27,8 +26,9 @@ class OrderController {
 
       const productsInfo = await products.reduce(async (acc, p) => {
         const { price, name } = await Product.findById(p.id);
+        const { amount } = p;
 
-        return [...(await acc), { name, price }];
+        return [...(await acc), { name, price, amount }];
       }, []);
 
       const order = await Order.create({
@@ -51,13 +51,44 @@ class OrderController {
     }
   }
 
-  async show(req, res) {
+  async index(req, res) {
     try {
       const { orderId } = req.query;
 
       const order = await Order.findById(orderId);
 
       return res.send({ order });
+    } catch (error) {
+      return res.send(error.message);
+    }
+  }
+
+  async show(req, res) {
+    try {
+      const { day } = req.query;
+
+      const d = await DayBalance.findOne({ day });
+
+      const orders = await d.orders.reduce(async (acc, o) => {
+        const initialState = await acc;
+        const order = await Order.findById(o);
+
+        return [...initialState, order];
+      }, []);
+
+      return res.send(orders);
+    } catch (error) {
+      return res.send(error.message);
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const { orderId } = req.body;
+
+      await Order.findByIdAndDelete(orderId);
+
+      return res.send({ msg: `Order was deleted with success` });
     } catch (error) {
       return res.send(error.message);
     }

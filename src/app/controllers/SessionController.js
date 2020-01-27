@@ -30,7 +30,7 @@ class SessionController {
 
       return res.json({ user, token });
     } catch (error) {
-      return res.send(error);
+      return res.status(401).send(error);
     }
   }
 }

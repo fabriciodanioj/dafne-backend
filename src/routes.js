@@ -34,6 +34,8 @@ routes.get('/user/day/show/all', DayBalanceController.showAll);
 
 // Order
 routes.post('/user/order/create', OrderController.store);
-routes.get('/user/order/show', OrderController.show);
+routes.delete('/user/order/delete', OrderController.delete);
+routes.get('/user/order/show', OrderController.index);
+routes.get('/user/order/show/perday', OrderController.show);
 
 export default routes;
